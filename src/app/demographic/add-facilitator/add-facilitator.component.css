@@ -1,0 +1,45 @@
+.centered-button {
+    margin: 0 auto; /* This centers the button horizontally */
+    display: block;  /* This makes the button occupy full width on smaller screens */
+  }
+
+  .header {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #3366ff; /* Change the color code as per your preference */
+  }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .form-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+  }
+  
+  /* Adjust the width of the form fields */
+  .mat-form-field {
+    width: calc(40% - 20px); /* Set the width of each field (40% of container width minus margin) */
+    margin: 10px; /* Add margin around each field */
+  }
+
+  .example-full-width {
+    width: 30%;
+    margin: 10px;
+  }
+
+  .centered-button {
+    margin: 0 5px; /* Adjust the value (5px) for desired gap size */
+    /* Existing styles for centering (if any) */
+  }
+
+  
+  

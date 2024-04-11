@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+  
+  .third-width {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .mat-select {
+    width: 50%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the element */
+  }
+  
+  fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  legend {
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-weight: bold;
+  }
+  
+  .mat-form-field {
+    margin-bottom: 20px;
+  }
+  .free-form {
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 30%;
+  }
+  .example-full-width {
+    width: 48%;
+    margin: 10px;
+  }
+  

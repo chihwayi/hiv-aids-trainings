@@ -1,0 +1,89 @@
+<h1 class="header">VMMC TRAINING</h1>
+
+<!-- Section 1 -->
+<div *ngIf="currentSection === 1" class="w-100 mb-4 d-flex flex-wrap justify-content-center">
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Area Of Service Provision</mat-label>
+            <input matInput type="text" name="service_area">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Trainer</mat-label>
+            <input matInput type="text" name="trainer">
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Basic Training</mat-label>
+            <input matInput type="date" name="basic">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>FG Conversion Training</mat-label>
+            <input matInput type="date" name="fg_conversion">
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>DS Conversion Training</mat-label>
+            <input matInput type="date" name="ds_conversion">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Certification</mat-label>
+            <input matInput type="date" name="certification">
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Emergency Training</mat-label>
+            <input matInput type="date" name="emergency">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Shangring Training</mat-label>
+            <input matInput type="date" name="shangring">
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>TOT Training</mat-label>
+            <input matInput type="date" name="tot">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Refresher Training</mat-label>
+            <input matInput type="date" name="refresher">
+        </mat-form-field>
+    </div>
+    <!-- Next Button for Section 1 -->
+    <div class="text-center mt-4">
+        <button type="submit" (click)="nextSection()" class="btn btn-primary centered-button">Next</button> 
+    </div>
+</div>
+
+<!-- Section 2 -->
+<div *ngIf="currentSection === 2" class="w-100 mb-4 d-flex flex-wrap justify-content-center">
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Comments</mat-label>
+            <textarea matInput name="comments" style="height: 200px;"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput name="remarks" style="height: 200px;"></textarea>
+        </mat-form-field>
+    </div>
+
+    <!-- Back Button for Section 2 -->
+    <div class="text-center mt-4">
+        <button type="submit" (click)="prevSection()" class="btn btn-primary centered-button">Back</button> 
+        <button type="submit"class="btn btn-primary centered-button">Submit</button>
+    </div>
+</div>

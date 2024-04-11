@@ -1,0 +1,26 @@
+/* Add this CSS to your styles.css or component-specific CSS file */
+.warning-dialog {
+    text-align: center; /* Center-align the entire dialog content */
+    max-width: 400px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px; /* Add some padding for spacing */
+    background-color: #f9f9f9; /* Set a background color */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+    border-radius: 8px; /* Round the corners */
+}
+
+/* Style the buttons */
+.mat-dialog-actions button {
+    margin: 0 10px; /* Add spacing between buttons */
+    background-color: #007bff; /* Set button background color */
+    color: #fff; /* Set button text color */
+    border: none; /* Remove button border */
+    border-radius: 4px; /* Round button corners */
+    cursor: pointer; /* Add pointer cursor on hover */
+    padding: 8px 16px; /* Add padding to buttons */
+    font-size: 14px; /* Set font size */
+}
+
+.mat-dialog-actions button:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+}

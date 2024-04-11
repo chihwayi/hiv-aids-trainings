@@ -1,0 +1,29 @@
+<nav>
+  <mat-toolbar color="primary">
+    <!-- Add Trainee link -->
+    <button mat-button (click)="goToAddTrainee()">Add Trainee</button>
+
+    <!-- Registered Trainees link -->
+    <button mat-button routerLink="/registered-trainees">Registered Trainees</button>
+
+    <!-- Trained Staff menu -->
+    <button mat-icon-button [matMenuTriggerFor]="trainedStaffMenu" aria-label="Trained Staff">
+      <mat-icon mat-list-icon>people</mat-icon>
+    </button>
+    <mat-menu #trainedStaffMenu="matMenu">
+      <!-- Sub menu items -->
+      <button mat-menu-item routerLink="/trained-staff/vmmc">VMMC Trained</button>
+      <button mat-menu-item routerLink="/trained-staff/hts">HTS Trained</button>
+      <button mat-menu-item routerLink="/trained-staff/art">ART Trained</button>
+    </mat-menu>
+
+    <!-- Spacer to push items to the right -->
+    <span class="spacer"></span>
+
+    <!-- Logged in user information -->
+    <span class="logged-in-user">Logged in as: {{ username }}</span>
+
+    <!-- Logout button -->
+    <button mat-button >Logout</button>
+  </mat-toolbar>
+</nav>

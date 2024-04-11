@@ -1,0 +1,36 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="add-user-form">
+        <h1 class="header">Facilitator Information</h1>
+        <div class="form-row">
+            <mat-form-field class="example-full-width">
+                <mat-label>Date Trained as Trainer</mat-label>
+                <input matInput type="date" [(ngModel)]="facilitator.date_trained" placeholder="Date Trained as Trainer" id="date_trained" name="date_trained" required>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Trainer Type</mat-label>
+                <mat-select id="trainer_type_id" [(ngModel)]="facilitator.trainer_type_id" name="trainer_type_id" required>
+                    <mat-option *ngFor="let trainingType of trainingTypes" [value]="trainingType.typeId">{{trainingType.typeName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field class="example-full-width">
+                <mat-label>Program Area</mat-label>
+                <mat-select id="program_area_id" [(ngModel)]="facilitator.program_area_id" name="program_area_id" required>
+                    <mat-option *ngFor="let programArea of programAreas" [value]="programArea.programId">{{programArea.programName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Trainer Affiliation</mat-label>
+                <mat-select id="trainer_affiliation" [(ngModel)]="facilitator.trainer_affiliation" name="trainer_affiliation" required>
+                    <mat-option *ngFor="let funding of fundings" [value]="funding.funderId">{{funding.funderName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <button type="submit"class="btn btn-primary centered-button">Submit</button>
+        </div>
+    </div>
+</form>

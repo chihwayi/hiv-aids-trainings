@@ -1,0 +1,16 @@
+<h1 class="header">Record A Training</h1>
+
+<div class="trainings-container">
+  <mat-card *ngFor="let training of trainings" [routerLink]="getRouterLink(training.type)" class="training-card clickable">
+    <mat-card-header>
+      <div mat-card-avatar class="training-icon">
+        <img [src]="training.iconUrl" alt="{{ training.name }} Icon">
+      </div>
+      <mat-card-title>{{ training.name }}</mat-card-title>
+    </mat-card-header>
+    <!-- You can add additional content here if needed -->
+  </mat-card>
+</div>
+
+  
+  
