@@ -1,13 +1,3 @@
-/* Custom CSS for navigation bar */
-
-nav {
-    margin-bottom: 20px; /* Add some spacing below the navigation bar */
-  }
-  
-  .mat-toolbar {
-    display: flex;
-    align-items: center;
-  }
   
   .spacer {
     flex: 1; /* This will push the next element to the right */
