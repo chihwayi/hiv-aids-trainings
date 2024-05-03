@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatSelectChange } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid';
 import { TrainingsService } from '../../service/trainings.service';
@@ -42,7 +42,6 @@ export class AddTraineesComponent {
   constructor(
     private trainingService: TrainingsService,
     private router: Router,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
     private fb: FormBuilder
   ) { }
@@ -59,7 +58,7 @@ export class AddTraineesComponent {
     return uuidv4();
   }
 
-  onSubmit() {
+  onSubmit(facilitatorTraineeValue: string) {
     this.trainingService.checkIfBasicInformationIdExists(this.demographic.basic_information_id).subscribe(
       (response: boolean) => {
         if (response) {
@@ -69,30 +68,15 @@ export class AddTraineesComponent {
           this.trainingService.saveUserInformation(this.demographic).subscribe(
             (saveResponse: any) => {
               if (saveResponse.ok) {
-                console.log('Basic Information ID:', this.demographic.basic_information_id);
               }
             }
           );
 
-          this.router.navigate(['/trainings/training-list', this.demographic.basic_information_id]);
-
-          /*
-          const groupValue = this.myForm?.get('group')?.value;
-          console.log('Selection value is : ', groupValue);
-
-          this.myForm?.get('group')?.valueChanges.subscribe((newValue) => {
-            console.log('New value:', newValue);
-          });
-
-          
-          // Rest of your logic using groupValue for redirection
-          if (groupValue === 'Facilitator') {
-            this.router.navigate(['/trainings/add-facilitators', this.demographic.basic_information_id]);
-          }
-          else {
+          if (facilitatorTraineeValue === 'Trainee') {
             this.router.navigate(['/trainings/training-list', this.demographic.basic_information_id]);
+          } else if (facilitatorTraineeValue === 'Facilitator') {
+            this.router.navigate(['/demographic/add-facilitators', this.demographic.basic_information_id]);
           }
-          */
         }
       }
     );
@@ -119,15 +103,15 @@ export class AddTraineesComponent {
 
   clearFormFields() {
     this.demographic.basic_information_id = '';
-    this.demographic.designation = '';
+    this.demographic.designation_id = '';
     this.demographic.name = '';
-    this.demographic.district = '';
-    this.demographic.facility = '';
+    this.demographic.district_id = '';
+    this.demographic.facility_id = '';
     this.demographic.phone_number = '';
-    this.demographic.province = '';
+    this.demographic.province_id = '';
     this.demographic.sex = '';
     this.demographic.surname = '';
-    this.demographic.title = '';
+    this.demographic.title_id = '';
   }
 
   goToTrainingLists() {
@@ -148,10 +132,10 @@ export class AddTraineesComponent {
   getProvinces() {
     this.trainingService.getFacilityConfigurationInformation().subscribe((data: Facility[]) => {
       // Extract unique provinces from the data
-      this.provinces = Array.from(new Set(data.map(item => item.provinceId))).map(provinceId => {
+      this.provinces = Array.from(new Set(data.map(item => item.province_id))).map(province_id => {
         return {
-          provinceId: provinceId,
-          provinceName: data.find(item => item.provinceId === provinceId)?.provinceName
+          province_id: province_id,
+          provinceName: data.find(item => item.province_id === province_id)?.provinceName
         };
       });
     });
@@ -160,7 +144,7 @@ export class AddTraineesComponent {
   onTitleChange() {
     const selectedTitleObj = this.titles.find(title => title.title_id === this.selectedTitle);
     if (selectedTitleObj) {
-      this.demographic.title = selectedTitleObj.title;
+      this.demographic.title_id = selectedTitleObj.title_id;
     }
     this.trainingService.getDesignationInformation().subscribe((data: Designation[]) => {
       this.designations = this.filterDesignation(data, this.selectedTitle);
@@ -168,9 +152,9 @@ export class AddTraineesComponent {
   }
 
   onProvinceChange() {
-    const selectedProvinceObj = this.provinces.find(province => province.provinceId === this.selectedProvince);
+    const selectedProvinceObj = this.provinces.find(province => province.province_id === this.selectedProvince);
     if (selectedProvinceObj) {
-      this.demographic.province = selectedProvinceObj.provinceName;
+      this.demographic.province_id = selectedProvinceObj.province_id;
     }
     // Filter districts based on selected province
     this.trainingService.getFacilityConfigurationInformation().subscribe((data: Facility[]) => {
@@ -180,9 +164,9 @@ export class AddTraineesComponent {
   }
 
   onDistrictChange() {
-    const selectedDistrictObj = this.districts.find(district => district.districtId === this.selectedDistrict);
+    const selectedDistrictObj = this.districts.find(district => district.district_id === this.selectedDistrict);
     if (selectedDistrictObj) {
-      this.demographic.district = selectedDistrictObj.districtName;
+      this.demographic.district_id = selectedDistrictObj.district_id;
     }
 
     // Fetch facilities based on selected province and district
@@ -190,20 +174,20 @@ export class AddTraineesComponent {
       this.facilities = this.filterFacilities(data, this.selectedProvince, this.selectedDistrict);
 
       // Set the selected facility name in demographic
-      const selectedFacilityObj = this.facilities.find(facility => facility.facilityId === this.selectedFacility);
+      const selectedFacilityObj = this.facilities.find(facility => facility.facility_id === this.selectedFacility);
       if (selectedFacilityObj) {
-        this.demographic.facility = selectedFacilityObj.facilityName;
+        this.demographic.facility_id = selectedFacilityObj.facility_id;
       }
     });
   }
 
-  filterDistricts(data: Facility[], provinceId: string): any[] {
+  filterDistricts(data: Facility[], province_id: string): any[] {
     const districtsForProvince = Array.from(new Set(
-      data.filter(item => item.provinceId === provinceId).map(item => item.districtId)
-    )).map(districtId => {
+      data.filter(item => item.province_id === province_id).map(item => item.district_id)
+    )).map(district_id => {
       return {
-        districtId: districtId,
-        districtName: data.find(item => item.districtId === districtId && item.provinceId === provinceId)?.districtName
+        district_id: district_id,
+        districtName: data.find(item => item.district_id === district_id && item.province_id === province_id)?.districtName
       };
     });
     return districtsForProvince;
@@ -213,22 +197,16 @@ export class AddTraineesComponent {
     return data.filter(item => item.title_id === title_id);
   }
 
-  filterFacilities(data: Facility[], provinceId: string, districtId: string): Facility[] {
-    return data.filter(item => item.provinceId === provinceId && item.districtId === districtId);
+  filterFacilities(data: Facility[], province_id: string, district_id: string): Facility[] {
+    return data.filter(item => item.province_id === province_id && item.district_id === district_id);
   }
 
-  // Function to navigate to the next section
-  nextSection() {
-    if (this.currentSection < 2) {
-      this.currentSection++;
-    }
+  onDesignationChange(event : MatSelectChange){
+    this.demographic.designation_id = event.value;
   }
 
-  // Function to navigate to the previous section
-  prevSection() {
-    if (this.currentSection > 1) {
-      this.currentSection--;
-    }
+  onFacilityChange(event : MatSelectChange){
+    this.demographic.facility_id = event.value;
   }
 
 }

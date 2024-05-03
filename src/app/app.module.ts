@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { HtsListComponent } from './lists/hts-list/hts-list.component';
 import { WarningPopupComponent } from './demographic/warning-popup/warning-popup.component';
 import { TrainingRecordingComponent } from './trainings/training-recording/training-recording.component';
 import { AddFacilitatorComponent } from './demographic/add-facilitator/add-facilitator.component';
+import { RegisteredListComponent } from './demographic/registered-list/registered-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { AddFacilitatorComponent } from './demographic/add-facilitator/add-facil
     HtsListComponent,
     WarningPopupComponent,
     TrainingRecordingComponent,
-    AddFacilitatorComponent
+    AddFacilitatorComponent,
+    RegisteredListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { AddFacilitatorComponent } from './demographic/add-facilitator/add-facil
     MatDialogModule,
     HttpClientModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [
     provideAnimationsAsync()

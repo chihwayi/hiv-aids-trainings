@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Demographic } from '../../models/demographic';
 
 @Component({
   selector: 'app-add-facilitator',
@@ -16,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AddFacilitatorComponent implements OnInit{
 
+  demographics: Demographic = new Demographic();
   facilitator = new Facilitator();
   fundings: Funding[] = [];
   trainingTypes:  TrainingType[] = [];
@@ -34,7 +36,15 @@ export class AddFacilitatorComponent implements OnInit{
       this.getAfiliation();
       this.getProgramArea();
       this.getTrainingType();
-      this.extractBasicInformationId();
+      this.extractBasicInformation();
+  }
+
+  getUserDemographic(basic_information_id: string): void {
+    this.trainingService.getUserDemographicInformation(basic_information_id).subscribe(
+      (data: Demographic) => {
+        this.demographics = data;
+      }
+    )
   }
 
   getAfiliation(){
@@ -74,8 +84,9 @@ export class AddFacilitatorComponent implements OnInit{
     return uuidv4();
   }
 
-  extractBasicInformationId() {
+  extractBasicInformation() {
     this.basic_information_id = this.route.snapshot.paramMap.get('basic_information_id') ?? '';
+    this.getUserDemographic(this.basic_information_id);
   }
 
   showPopup() {
@@ -109,10 +120,12 @@ export class AddFacilitatorComponent implements OnInit{
             (saveResponse: any) => {
               if (saveResponse.ok) {
                 console.log('Basic Information ID:', this.basic_information_id);
+                console.log('Facilitator:', this.facilitator);
               }
             }
           );
-
+          
+          console.log('Facilitator:', this.facilitator);
           this.router.navigate(['/demographic/add-trainees']);
         }
       }

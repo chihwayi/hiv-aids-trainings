@@ -1,22 +1,22 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit(facilitatorTrainee.value)">
   <div class="add-user-form">
     <h1 class="header">Demographic Information</h1>
-    <div *ngIf="currentSection === 1" class="example-container w-100 mb-4 d-flex flex-wrap justify-content-center">
+    <div class="example-container w-100 mb-4 d-flex flex-wrap justify-content-center">
       <div class="form-row">
         <mat-form-field class="example-full-width">
           <mat-label>Province</mat-label>
-          <mat-select id="province" [(ngModel)]="selectedProvince" name="province"
+          <mat-select id="province_id" [(ngModel)]="selectedProvince" name="province_id"
             (selectionChange)="onProvinceChange()" required>
-            <mat-option *ngFor="let province of provinces" [value]="province.provinceId">{{ province.provinceName
+            <mat-option *ngFor="let province of provinces" [value]="province.province_id">{{ province.provinceName
               }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>District</mat-label>
-          <mat-select id="district" [(ngModel)]="selectedDistrict" name="district"
+          <mat-select id="district_id" [(ngModel)]="selectedDistrict" name="district_id"
             (selectionChange)="onDistrictChange()" required>
-            <mat-option *ngFor="let district of districts" [value]="district.districtId">{{ district.districtName
+            <mat-option *ngFor="let district of districts" [value]="district.district_id">{{ district.districtName
               }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -24,8 +24,8 @@
       <div class="form-row">
         <mat-form-field class="example-full-width">
           <mat-label>Facility</mat-label>
-          <mat-select id="facility" [(ngModel)]="selectedFacility" name="facility" required>
-            <mat-option *ngFor="let facility of facilities" [value]="facility.facilityId">{{ facility.facilityName
+          <mat-select id="facility_id" [(ngModel)]="selectedFacility" name="facility_id" (selectionChange)="onFacilityChange($event)" required>
+            <mat-option *ngFor="let facility of facilities" [value]="facility.facility_id">{{ facility.facilityName
               }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -68,29 +68,24 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Designation</mat-label>
-          <mat-select id="designation" [(ngModel)]="selectedDesignation" name="designation" required>
+          <mat-select id="designation_id" [(ngModel)]="selectedDesignation" name="designation_id" (selectionChange)="onDesignationChange($event)" required>
             <mat-option *ngFor="let designation of designations" [value]="designation.designation_id">{{
               designation.designation
               }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="text-center mt-4">
-        <button type="submit" (click)="nextSection()" class="btn btn-primary centered-button">Next</button> 
-    </div>
-    </div>
-    <div *ngIf="currentSection === 2" class="example-container w-100 mb-4 d-flex flex-wrap justify-content-center">
-      
-      <mat-form-field class="example-full-width">
-        <mat-label>Facilitator/Trainee</mat-label>
-        <mat-select name="group" required>
-            <mat-option value="Facilitator">Facilitator</mat-option>
-            <mat-option value="Trainee">Trainee</mat-option>
-        </mat-select>
-    </mat-form-field>
-
       <div class="form-row">
-        <button type="submit" (click)="prevSection()" class="btn btn-primary centered-button">Back</button> 
+        <mat-form-field class="example-full-width">
+          <mat-label>Facilitator/Trainee</mat-label>
+          <mat-select #facilitatorTrainee name="facilitator_trainee" required>
+            <mat-option *ngFor="let option of ['Facilitator', 'Trainee']" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+      <div class="text-center mt-4">
         <button type="submit"class="btn btn-primary centered-button">Submit</button>
     </div>
     </div>

@@ -1,0 +1,25 @@
+.text-center {
+    font-size: 36px;
+    font-weight: bold;
+    color: #3366ff; /* Change the color code as per your preference */
+  }
+
+.card card-body{
+    margin-left: auto;
+}
+
+.background-color-1 {
+  background-color: pink;
+}
+
+.background-color-2 {
+  background-color: blue;
+}
+
+.background-color-3 {
+  background-color: yellow;
+}
+
+.background-color-4 {
+  background-color: grey;
+}

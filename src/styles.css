@@ -1,2 +1,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    background-image: url('/assets/images/aids2.jpg');
+    background-size: cover; /* Cover the whole viewport */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+}

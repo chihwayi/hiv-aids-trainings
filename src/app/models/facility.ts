@@ -1,7 +1,7 @@
 export class Facility {
-    facilityId : string = '';
-    districtId : string = '';
-    provinceId : string = '';
+    facility_id : string = '';
+    district_id : string = '';
+    province_id : string = '';
     facilityName : string = '';
     provinceName : string = '';
     districtName : string = '';

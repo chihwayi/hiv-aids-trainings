@@ -1,101 +1,133 @@
 <div class="container">
   <!-- Header -->
+  <h1 class="header">{{userDemographics.name}} {{userDemographics.surname}}'s Training Information</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name of Training</mat-label>
+        <mat-select name="program_area_training_id" [(ngModel)]="trainingData.program_area_training_id">
+          <mat-option *ngFor="let trainingName of programAreaTraining" [value]="trainingName.programAreaTrainingId"
+            id="program_area_training_id">{{trainingName.programAreaTrainingName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <div class="form-row">
-    <mat-form-field class="example-full-width">
-      <mat-label>Name of Training</mat-label>
-      <mat-select>
-        <mat-option value="name1">Basic</mat-option>
-        <mat-option value="name2">Shangring</mat-option>
-        <mat-option value="name3">FG Conversion</mat-option>
-        <mat-option value="name4">DS Conversion</mat-option>
-        <mat-option value="name5">TOT</mat-option>
-        <!-- Add more options as needed -->
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Trainer Name(s)</mat-label>
-    <mat-select placeholder="Select Trainer(s)" multiple>
-      <mat-option *ngFor="let trainer of trainers" [value]="trainer">{{trainer}}</mat-option>
-    </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <!-- Number of Days -->
-    <mat-form-field class="third-width">
-      <mat-label>Number of Days</mat-label>
-      <input matInput type="number" placeholder="Enter number of days">
-    </mat-form-field>
-
-    <!-- Start Date -->
-    <mat-form-field class="third-width">
-      <mat-label>Start Date</mat-label>
-      <input matInput type="date" placeholder="Start Date">
-    </mat-form-field>
-
-    <!-- End Date -->
-    <mat-form-field class="third-width">
-      <mat-label>End Date</mat-label>
-      <input matInput type="date" placeholder="End Date">
-    </mat-form-field>
-  </div>
-
-  <div class="form-row">
-    <mat-form-field class="example-full-width">
-      <mat-label>Training Type</mat-label>
-      <mat-select>
-        <mat-option value="type1">Training of Trainers</mat-option>
-        <mat-option value="type2">In-service Training</mat-option>
-        <mat-option value="type3">Pre-service training</mat-option>
-        <mat-option value="type4">On the Job Training/Mentorship</mat-option>
-        <mat-option value="type5">Refresher retraining</mat-option>
-        <!-- Add more options as needed -->
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Supporting Organisation</mat-label>
-      <mat-select>
-        <mat-option value="NGOs">MoHCC</mat-option>
-        <mat-option value="other">Zim-TTECH</mat-option>
-        <mat-option value="NGOs">PSH</mat-option>
-        <mat-option value="other">OPHID</mat-option>
-        <mat-option value="NGOs">WHO</mat-option>
-        <mat-option value="other">Other</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <!-- Method of Training -->
-  <fieldset>
-    <legend>Method of Training</legend>
-    <div>
-      <mat-checkbox>Level 1: Classroom/Didactic</mat-checkbox>
-      <mat-checkbox>Level 2: Skills-Building/Participatory (e.g., case discussions, small group discussions, simulated patients)</mat-checkbox>
-      <mat-checkbox>Level 3: Practicum (e.g. preceptorship, clinical practicum, or mini-residencies)</mat-checkbox>
-      <mat-checkbox>Level 4: On-Site Mentoring (e.g. clinical mentoring or on-site training in using new EHR system)</mat-checkbox>
-      <mat-checkbox>Level 5: Distance Consultation – online, email, or phone</mat-checkbox>
-      <mat-checkbox>Level 6: Blended learning</mat-checkbox>
-      <!-- Add more checkboxes as needed -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Trainer Name(s)</mat-label>
+        <mat-select name="facilitator_id" [(ngModel)]="trainingData.facilitator_id" placeholder="Select Trainer(s)"
+          multiple (ngModelChange)="onFacilitatorChange($event)">
+          <mat-option *ngFor="let demographic of demograhics" [value]="demographic.basic_information_id">
+            {{demographic.name}} {{demographic.surname}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </fieldset>
 
-  <div class="form-row">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <div class="row">
+      <!-- Number of Days -->
+      <mat-form-field class="third-width">
+        <mat-label>Number of Days</mat-label>
+        <input matInput type="number" placeholder="Enter number of days" id="number_of_days" name="number_of_days"
+          [(ngModel)]="trainingData.number_of_days">
+      </mat-form-field>
+
+      <!-- Start Date -->
+      <mat-form-field class="third-width">
+        <mat-label>Start Date</mat-label>
+        <input matInput type="date" placeholder="Start Date" id="start_date" name="start_date"
+          [(ngModel)]="trainingData.start_date">
+      </mat-form-field>
+
+      <!-- End Date -->
+      <mat-form-field class="third-width">
+        <mat-label>End Date</mat-label>
+        <input matInput type="date" placeholder="End Date" id="end_date" name="end_date"
+          [(ngModel)]="trainingData.end_date">
+      </mat-form-field>
+    </div>
+
+    <!-- Your component template -->
+    <fieldset>
+      <legend>Trainee Status</legend>
+      <div class="row">
+        <!-- Status MatSelect -->
+        <mat-form-field class="third-width">
+          <mat-label>Status</mat-label>
+          <mat-select name="current_status_id" [(ngModel)]="trainingData.current_status_id">
+            <mat-option *ngFor="let currentStatus of currentStatuses" [value]="currentStatus.status_id"
+              id="current_status_id">{{currentStatus.status_description
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Certification MatSelect (or Radio Button) -->
+        <mat-form-field class="third-width">
+          <mat-label>Have you been certified?</mat-label>
+          <mat-select [(ngModel)]="certified" (ngModelChange)="handleCertificationChange($event)" name="certified">
+            <mat-option value="yes">Yes</mat-option>
+            <mat-option value="no">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Certification Date Field (conditionally visible) -->
+        <mat-form-field *ngIf="certified === 'yes'" class="third-width">
+          <mat-label>Certification Date</mat-label>
+          <input matInput type="date" id="certified_date" name="certified_date"
+            [(ngModel)]="trainingData.certified_date">
+        </mat-form-field>
+      </div>
+    </fieldset>
+
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width">
+        <mat-label>Training Type</mat-label>
+        <mat-select name="type_id" [(ngModel)]="trainingData.type_id">
+          <mat-option *ngFor="let trainingTypes of trainingType" [value]="trainingTypes.typeId"
+            id="type_id">{{trainingTypes.typeName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Supporting Organisation</mat-label>
+        <mat-select name="funder_id" [(ngModel)]="trainingData.funder_id">
+          <mat-option *ngFor="let supportingOrganization of supportingOrganizations"
+            [value]="supportingOrganization.funderId" id="funder_id">{{supportingOrganization.funderName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Method of Training -->
+    <fieldset>
+      <legend>Method of Training</legend>
+      <mat-form-field class="full-width">
+          <mat-label>Method(s)</mat-label>
+          <mat-select (ngModelChange)="onTrainingMethodChange($event)" id="method_id" name="method_id" placeholder="Select Training Method(s)"
+          multiple [(ngModel)]="trainingData.method_id">
+            <mat-option *ngFor="let method of trainingMethod" [value]="method.methodId">
+              {{method.methodName}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </fieldset>
+
+
+    <div class="form-row">
+      <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Comments</mat-label>
-        <textarea matInput name="comments" style="height: 200px;"></textarea>
-    </mat-form-field>
+        <textarea matInput name="comments" style="height: 100px;" id="comments" name="comments"
+          [(ngModel)]="trainingData.comments"></textarea>
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Remarks</mat-label>
-        <textarea matInput name="remarks" style="height: 200px;"></textarea>
-    </mat-form-field>
-</div>
+        <textarea matInput name="remarks" style="height: 100px;" id="remarks" name="remarks"
+          [(ngModel)]="trainingData.remarks"></textarea>
+      </mat-form-field>
+    </div>
 
-  <!-- Submit Button -->
-  <div class="center">
-    <button type="submit" class="btn btn-primary centered-button">Submit</button>
-  </div>
+    <!-- Submit Button -->
+    <div class="center">
+      <button type="submit" class="btn btn-primary centered-button">Submit</button>
+    </div>
+  </form>
 </div>

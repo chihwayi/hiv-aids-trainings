@@ -4,10 +4,9 @@ export class Demographic {
     surname: string = '';
     sex: string = '';
     phone_number: string = '';
-    designation: string = '';
-    title: string = '';
-    facility: string = '';
-    district: string = '';
-    province: string = '';
-    group!: 'Facilitator' | 'Trainee'; 
+    designation_id: string = '';
+    title_id: string = '';
+    facility_id: string = '';
+    district_id: string = '';
+    province_id: string = '';
 }

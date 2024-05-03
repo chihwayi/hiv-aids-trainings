@@ -1,6 +1,6 @@
 <form (ngSubmit)="onSubmit()">
     <div class="add-user-form">
-        <h1 class="header">Facilitator Information</h1>
+        <h1 class="header">{{demographics.name}} {{demographics.surname}} Information</h1>
         <div class="form-row">
             <mat-form-field class="example-full-width">
                 <mat-label>Date Trained as Trainer</mat-label>
@@ -24,7 +24,7 @@
 
             <mat-form-field class="example-full-width">
                 <mat-label>Trainer Affiliation</mat-label>
-                <mat-select id="trainer_affiliation" [(ngModel)]="facilitator.trainer_affiliation" name="trainer_affiliation" required>
+                <mat-select id="trainer_affiliation_id" [(ngModel)]="facilitator.trainer_affiliation_id" name="trainer_affiliation_id" required>
                     <mat-option *ngFor="let funding of fundings" [value]="funding.funderId">{{funding.funderName}}</mat-option>
                 </mat-select>
             </mat-form-field>
