@@ -15,13 +15,13 @@ import { Demographic } from '../../models/demographic';
   templateUrl: './add-facilitator.component.html',
   styleUrl: './add-facilitator.component.css'
 })
-export class AddFacilitatorComponent implements OnInit{
+export class AddFacilitatorComponent implements OnInit {
 
   demographics: Demographic = new Demographic();
   facilitator = new Facilitator();
   fundings: Funding[] = [];
-  trainingTypes:  TrainingType[] = [];
-  programAreas:  ProgramArea[] = [];
+  trainingTypes: TrainingType[] = [];
+  programAreas: ProgramArea[] = [];
 
   basic_information_id!: string;
 
@@ -30,13 +30,16 @@ export class AddFacilitatorComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
-  ){}
+  ) { }
 
   ngOnInit(): void {
-      this.getAfiliation();
-      this.getProgramArea();
-      this.getTrainingType();
+    this.getAfiliation();
+    this.getProgramArea();
+    this.getTrainingType();
+    // Check if basic_information_id is available before calling extractBasicInformation
+    if (this.route.snapshot.paramMap.has('basic_information_id')) {
       this.extractBasicInformation();
+    }
   }
 
   getUserDemographic(basic_information_id: string): void {
@@ -47,7 +50,7 @@ export class AddFacilitatorComponent implements OnInit{
     )
   }
 
-  getAfiliation(){
+  getAfiliation() {
     this.trainingService.getFunding().subscribe(
       (data: Funding[]) => {
         this.fundings = data;
@@ -58,7 +61,7 @@ export class AddFacilitatorComponent implements OnInit{
     );
   }
 
-  getTrainingType(){
+  getTrainingType() {
     this.trainingService.getTrainingType().subscribe(
       (data: TrainingType[]) => {
         this.trainingTypes = data;
@@ -69,7 +72,7 @@ export class AddFacilitatorComponent implements OnInit{
     );
   }
 
-  getProgramArea(){
+  getProgramArea() {
     this.trainingService.getProgramArea().subscribe(
       (data: ProgramArea[]) => {
         this.programAreas = data;
@@ -108,7 +111,25 @@ export class AddFacilitatorComponent implements OnInit{
     });
   }
 
-  onSubmit(){
+  showSaveSuccessDialog() {
+    const dialogRef = this.dialog.open(WarningPopupComponent, {
+      data: {
+        message: 'Data saved successfully. What would you like to do next?',
+        actions: ['Capture another user', 'Go to registered users']
+      },
+    });
+
+    // Handle the user's choice from the popup
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'stay') {
+        this.router.navigate(['/demographic/add-trainees']);
+      } else if (result === 'redirect') {
+        this.router.navigate(['/demographic/registered-list']);
+      }
+    });
+  }
+
+  onSubmit() {
     this.trainingService.checkIfFacilitatorIdExists(this.basic_information_id).subscribe(
       (response: boolean) => {
         if (response) {
@@ -122,14 +143,13 @@ export class AddFacilitatorComponent implements OnInit{
                 console.log('Basic Information ID:', this.basic_information_id);
                 console.log('Facilitator:', this.facilitator);
               }
+              this.showSaveSuccessDialog(); // Moved outside of the if block
             }
           );
-          
-          console.log('Facilitator:', this.facilitator);
-          this.router.navigate(['/demographic/add-trainees']);
         }
       }
     );
   }
+
 
 }

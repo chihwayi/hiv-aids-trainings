@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-warning-popup',
@@ -7,5 +7,5 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './warning-popup.component.css'
 })
 export class WarningPopupComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string; actions: string[] }, public dialogRef: MatDialogRef<WarningPopupComponent>) {}
 }
