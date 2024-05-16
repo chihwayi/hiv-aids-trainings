@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,7 +68,8 @@ import { RegisteredListComponent } from './demographic/registered-list/registere
     HttpClientModule,
     FormsModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()

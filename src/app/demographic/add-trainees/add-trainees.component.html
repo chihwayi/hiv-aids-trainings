@@ -24,15 +24,21 @@
       <div class="form-row">
         <mat-form-field class="example-full-width">
           <mat-label>Facility</mat-label>
-          <mat-select id="facility_id" [(ngModel)]="selectedFacility" name="facility_id" (selectionChange)="onFacilityChange($event)" required>
+          <mat-select id="facility_id" [(ngModel)]="selectedFacility" name="facility_id"
+            (selectionChange)="onFacilityChange($event)" required>
             <mat-option *ngFor="let facility of facilities" [value]="facility.facility_id">{{ facility.facilityName
               }}</mat-option>
           </mat-select>
         </mat-form-field>
-
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="ID Number" name="basic_information_id" [(ngModel)]="demographic.basic_information_id" required>
+          <input matInput placeholder="ID Number (00-000000A00)" name="basic_information_id"
+            [formControl]="idNumberFormControl" (input)="formatIdNumber($event)"
+            [(ngModel)]="demographic.basic_information_id" maxlength="12"/>
+          <mat-error *ngIf="idNumberFormControl.hasError('pattern')">
+            Invalid ID Number format. Please enter a valid ID.
+          </mat-error>
         </mat-form-field>
+
       </div>
       <div class="form-row">
         <mat-form-field class="example-full-width">
@@ -46,7 +52,11 @@
 
       <div class="form-row">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Phone Number" name="phone_number" [(ngModel)]="demographic.phone_number" required>
+          <input matInput placeholder="Phone Number" name="phone_number" [formControl]="phoneNumberFormControl"
+            (input)="formatPhoneNumber($event)" [(ngModel)]="demographic.phone_number" maxlength="10"/>
+          <mat-error *ngIf="phoneNumberFormControl.hasError('pattern')" >
+            Invalid phone number format. Please enter a valid number.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
@@ -68,7 +78,8 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Designation</mat-label>
-          <mat-select id="designation_id" [(ngModel)]="selectedDesignation" name="designation_id" (selectionChange)="onDesignationChange($event)" required>
+          <mat-select id="designation_id" [(ngModel)]="selectedDesignation" name="designation_id"
+            (selectionChange)="onDesignationChange($event)" required>
             <mat-option *ngFor="let designation of designations" [value]="designation.designation_id">{{
               designation.designation
               }}</mat-option>
@@ -84,10 +95,10 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-    </div>
+      </div>
       <div class="text-center mt-4">
-        <button type="submit"class="btn btn-primary centered-button">Submit</button>
-    </div>
+        <button type="submit" class="btn btn-primary centered-button">Submit</button>
+      </div>
     </div>
   </div>
 </form>

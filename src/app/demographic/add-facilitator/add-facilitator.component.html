@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()">
-    <div class="add-user-form">
+    <div class="add-user-form" *ngIf="demographics">
         <h1 class="header">{{demographics.name}} {{demographics.surname}} Information</h1>
         <div class="form-row">
             <mat-form-field class="example-full-width">

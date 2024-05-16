@@ -40,14 +40,22 @@ export class AddFacilitatorComponent implements OnInit {
     if (this.route.snapshot.paramMap.has('basic_information_id')) {
       this.extractBasicInformation();
     }
+    
   }
 
   getUserDemographic(basic_information_id: string): void {
     this.trainingService.getUserDemographicInformation(basic_information_id).subscribe(
       (data: Demographic) => {
         this.demographics = data;
+        // Check if demographics is still null after setting it
+        if (!this.demographics) {
+          // Navigate to the current route to force a reload
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/demographic/add-facilitators', basic_information_id]);
+          });
+        }
       }
-    )
+    );
   }
 
   getAfiliation() {

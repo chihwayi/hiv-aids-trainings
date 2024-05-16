@@ -8,7 +8,7 @@ import { Facility } from '../../models/facility';
 import { Demographic } from '../../models/demographic';
 import { Designation } from '../../models/designation';
 import { WarningPopupComponent } from '../warning-popup/warning-popup.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-trainees',
@@ -20,6 +20,16 @@ export class AddTraineesComponent {
   myForm!: FormGroup; // Declare the property here
   demographic = new Demographic();
   designation = new Designation();
+
+  idNumberFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/70-\d{6,7}[A-Z]\d{2}$/),
+  ]);
+
+  phoneNumberFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/07[1378]\d{7}$/),
+  ])
 
   selectedProvince!: string;
   selectedDistrict!: string;
@@ -207,6 +217,20 @@ export class AddTraineesComponent {
 
   onFacilityChange(event : MatSelectChange){
     this.demographic.facility_id = event.value;
+  }
+
+  formatIdNumber(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+
+    if (inputValue.length === 2) {
+      inputElement.value = inputValue + '-';
+    }
+  }
+
+  formatPhoneNumber(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
   }
 
 }
