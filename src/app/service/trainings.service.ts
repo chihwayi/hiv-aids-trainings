@@ -22,6 +22,8 @@ import { DataDictionaryReport } from '../models/DataDictionaryReport';
 })
 export class TrainingsService {
   private baseUrl = 'http://localhost:8081/api';
+  //private baseUrl = 'http://173.212.195.88:8080/hivtrainings-0.0.1-SNAPSHOT/api';
+  //private baseUrl = 'http://localhost:8080/hivtrainings-0.0.1-SNAPSHOT/api';
 
   constructor(private http: HttpClient) { }
 
