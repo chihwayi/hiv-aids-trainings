@@ -23,7 +23,7 @@ export class AddTraineesComponent {
 
   idNumberFormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern(/70-\d{6,7}[A-Z]\d{2}$/),
+    Validators.pattern(/^\d{2}-\d{6,7}[A-Z]\d{2}$/),
   ]);
 
   phoneNumberFormControl = new FormControl('', [

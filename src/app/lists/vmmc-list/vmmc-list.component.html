@@ -7,7 +7,7 @@
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
-        <input type="text" placeholder="Search by Name Surname or ID">
+        <input class="centered-input rounded-search-bar" type="text" placeholder="Search by Name Surname or ID"  (keyup)="filterReportTable($event)" style="width: 400px;">
         <table class="table table-bordered">
           <thead>
             <tr>

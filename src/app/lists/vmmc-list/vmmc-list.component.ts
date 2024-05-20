@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingsService } from '../../service/trainings.service';
+import { ReportService } from '../../service/report.service';
 import { DataDictionaryReport } from '../../models/DataDictionaryReport';
+import { BasicInformationDictionary } from '../../models/BasicInformationDictionary';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -13,53 +15,30 @@ export class VmmcListComponent implements OnInit {
   trainingTypes = ['Shangring', 'TOT', 'Emergency', 'Basic Training', 'GF Conversion', 'DS Conversion'];
   reportTable = [];
   dataDictionary!: DataDictionaryReport;
+  searchValue = '';
+  displayReportTable = []; // New display array
 
-  constructor(private trainingService: TrainingsService) { }
+
+  constructor(private trainingService: TrainingsService, private reportService: ReportService) { }
 
   ngOnInit(): void {
     this.getVmmcReport();
   }
 
-  transformData(data: DataDictionaryReport): any {
-    const tableData = [];
+  filterReportTable(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.searchValue = target.value.toLowerCase();
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        const entry = data[key];
-        const basicInfo = entry['Basic Information']; // Retrieve Basic Information object
-        const trainingTypes = basicInfo['Training Type'] || {}; // Retrieve Training Type object (if exists)
-
-        const row: any = {
-          id: basicInfo.basic_information_id,
-          name: basicInfo.name,
-          surname: basicInfo.surname,
-          sex: basicInfo.sex,
-          phone_number: basicInfo.phone_number,
-          title: basicInfo.title,
-          designation: basicInfo.designation,
-          facility: basicInfo.facility,
-          district: basicInfo.district,
-          province: basicInfo.province
-        };
-
-        // Iterate over each training type
-        Object.keys(trainingTypes).forEach((type) => {
-          const training = trainingTypes[type];
-          row[type] = {
-            end_date: training.end_date,
-            certified_date: training.certified_date,
-            funderName: training.funderName,
-            number_of_days: training.number_of_days,
-            method_name: training.method_name.join(','),
-            start_date: training.start_date,
-            facilitator_name: training.facilitator_name.join(',')
-          };
-        });
-        tableData.push(row);
-      }
+    // Update displayReportTable based on searchValue
+    if (this.searchValue.trim()) {
+      this.reportTable = this.reportTable.filter((row: BasicInformationDictionary) => {
+        const rowString = JSON.stringify(row).toLowerCase();
+        return rowString.includes(this.searchValue);
+      });
+    } else {
+      // If search box is cleared, display the original list
+      this.reportTable = [...this.displayReportTable]; // Spread operator to create a shallow copy
     }
-
-    return tableData;
   }
 
   typeExists(type: string): boolean {
@@ -70,7 +49,10 @@ export class VmmcListComponent implements OnInit {
       (data: DataDictionaryReport) => {
         this.dataDictionary = data;
 
-        this.reportTable = this.transformData(this.dataDictionary);
+        this.reportTable = this.reportService.transformData(this.dataDictionary, this.trainingTypes);
+
+        //creating a copy
+        this.displayReportTable = this.reportTable;
       }
     );
   }

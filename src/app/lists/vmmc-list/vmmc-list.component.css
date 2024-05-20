@@ -23,3 +23,20 @@
 .background-color-4 {
   background-color: grey;
 }
+/* Center the input element */
+.centered-input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content; /* Adjusts the width to fit the content */
+  
+}
+
+/* Style the input to have rounded corners */
+.rounded-search-bar {
+  border-radius: 25px; /* Adjust the radius for desired roundness */
+  padding: 10px; /* Adds some padding around the text */
+  font-size: 16px; /* Sets the font size */
+  outline: none; /* Removes the focus outline */
+  box-shadow: 0 0 5px rgba(0,0,0,0.15); /* Optional: adds a subtle shadow for depth */
+}
