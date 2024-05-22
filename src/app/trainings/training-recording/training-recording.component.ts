@@ -23,6 +23,7 @@ export class TrainingRecordingComponent implements OnInit{
 
   trainingData: TrainingData = new TrainingData();
   userDemographics: Demographic = new Demographic();
+  userProgramArea: ProgramArea = new ProgramArea();
 
   programAreaTraining: ProgramAreaTraining[] = [];
   programArea: ProgramArea[] = [];
@@ -119,6 +120,14 @@ export class TrainingRecordingComponent implements OnInit{
     )
   }
 
+  getProgramNameByID(id: string): void{
+    this.trainingService.getOneProgramAreaByID(id).subscribe(
+      (data: ProgramArea) => {
+        this.userProgramArea = data;
+      }
+    )
+  }
+
   getFacilitatorDemographicProgramArea(program_id: string): void{
     this.trainingService.getFacilitatorDemographyProgramArea(program_id).subscribe(
       (data: FacilitatorDemography[]) => {
@@ -144,6 +153,7 @@ export class TrainingRecordingComponent implements OnInit{
         this.trainingData.basic_information_id = this.basicInformationId;
         this.trainingData.program_id = this.programId;
         this.getUserDemographic(this.basicInformationId);
+        this.getProgramNameByID(this.programId);
       }
       
     });

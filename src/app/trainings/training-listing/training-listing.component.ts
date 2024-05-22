@@ -53,7 +53,7 @@ export class TrainingListingComponent implements OnInit{
         return ['/trainings/training-recording', this.basic_information_id, programId];
       case 'ht':
         // Define route for HIV TESTING
-        break;
+        return ['/trainings/training-recording', this.basic_information_id, programId];
       case 'sti':
         // Define route for STI
         break;

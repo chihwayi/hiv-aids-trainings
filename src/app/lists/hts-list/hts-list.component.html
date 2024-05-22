@@ -1,1 +1,100 @@
-<p>hts-list works!</p>
+<!-- view-trainers.component.html -->
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">HTS Trained Personel</h2>
+  
+    <!-- Beautiful List -->
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <input class="centered-input rounded-search-bar" type="text" placeholder="Search by Name Surname or ID"  (keyup)="filterReportTable($event)" style="width: 400px;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th [ngStyle]="{'background-color': 'blue'}">ID</th>
+                <th [ngStyle]="{'background-color': 'grey'}">Name</th>
+                <th [ngStyle]="{'background-color': 'yellow'}">Surname</th>
+                <th [ngStyle]="{'background-color': 'pink'}">Sex</th>
+                <th [ngStyle]="{'background-color': 'grey'}">Designation</th>
+                <!-- Loop over training types to create header columns -->
+                <ng-container *ngFor="let type of trainingTypes; let i = index">
+                  <th [ngClass]="{
+                    'background-color-1': i % 4 === 0,
+                    'background-color-2': i % 4 === 1,
+                    'background-color-3': i % 4 === 2,
+                    'background-color-4': i % 4 === 3
+                  }" colspan="7">{{ type }}</th>
+                </ng-container>
+                <th [ngStyle]="{'background-color': 'grey'}">Facility</th>
+                <th [ngStyle]="{'background-color': 'yellow'}">District</th>
+                <th [ngStyle]="{'background-color': 'pink'}">Province</th>
+              </tr>
+              <!-- Header row for sub-columns -->
+              <tr>
+                <!-- Empty cells for ID, Name, Surname, Sex, Designation, Facility, District, Province -->
+                <td *ngFor="let _ of [1, 2, 3, 4, 5]"></td>
+                <!-- Sub-columns for each training type -->
+                <ng-container *ngFor="let _ of trainingTypes">
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Number of Days</th>
+                  <th>Certified Date</th>
+                  <th>Training Method</th>
+                  <th>Facilitators</th>
+                  <th>Funder</th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Loop over rows of reportTable -->
+              <tr *ngFor="let row of reportTable">
+                <!-- Data cells for ID, Name, Surname, Sex, Designation, Facility, District, Province -->
+                <td>{{ row['id'] }}</td>
+                <td>{{ row['name'] }}</td>
+                <td>{{ row['surname'] }}</td>
+                <td>{{ row['sex'] }}</td>
+                <td>{{ row['designation'] }}</td>
+                <!-- Loop over training types to display associated data -->
+                <ng-container *ngFor="let type of trainingTypes">
+                  <td *ngIf="row[type]">
+                    {{ row[type]['start_date'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['end_date'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['number_of_days'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['certified_date'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['method_name'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['facilitator_name'] }}
+                  </td>
+                  <td *ngIf="row[type]">
+                    {{ row[type]['funderName'] }}
+                  </td>
+                  <!-- Empty cells if data for this type is not available -->
+                  <td *ngIf="!row[type]" colspan="7"></td>
+                </ng-container>
+                <td>{{ row['facility'] }}</td>
+                <td>{{ row['district'] }}</td>
+                <td>{{ row['province'] }}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+  
+        <!-- Export to Excel Button -->
+        <div class="text-center mt-3">
+          <button class="btn btn-info" title="Export to Excel" (click)="exportToExcel()">
+            Export to Excel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

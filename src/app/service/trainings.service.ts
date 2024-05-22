@@ -135,6 +135,11 @@ export class TrainingsService {
     return this.http.get<ProgramArea[]>(url);
   }
 
+  getOneProgramAreaByID(id: string): Observable<ProgramArea> {
+    const url = `${this.baseUrl}/program-area/get-by-id/${id}`;
+    return this.http.get<ProgramArea>(url);
+  }
+
   getReports(): Observable<{ [key: string]: Report }> {
     const url = `${this.baseUrl}/vmmc-report/report-map`;
     return this.http.get<{ [key: string]: Report }>(url);

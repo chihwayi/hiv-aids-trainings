@@ -8,6 +8,7 @@ import { TrainingRecordingComponent } from './trainings/training-recording/train
 import { AddFacilitatorComponent } from './demographic/add-facilitator/add-facilitator.component';
 import { VmmcListComponent } from './lists/vmmc-list/vmmc-list.component';
 import { RegisteredListComponent } from './demographic/registered-list/registered-list.component';
+import { HtsListComponent } from './lists/hts-list/hts-list.component';
 
 const routes: Routes = [
   { path: 'demographic/add-trainees', component: AddTraineesComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'trainings/hts', component: AddHtsTrainingComponent },
   { path: 'trainings/training-recording/:basic_information_id/:programId', component: TrainingRecordingComponent},
   { path: 'training-lists/vmmc', component:VmmcListComponent},
+  { path: 'training-lists/hts', component:HtsListComponent},
   { path: 'demographic/registered-list', component:RegisteredListComponent}
 ];
 

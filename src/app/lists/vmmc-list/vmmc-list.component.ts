@@ -31,13 +31,13 @@ export class VmmcListComponent implements OnInit {
 
     // Update displayReportTable based on searchValue
     if (this.searchValue.trim()) {
-      this.reportTable = this.reportTable.filter((row: BasicInformationDictionary) => {
+      this.displayReportTable = this.reportTable.filter((row: BasicInformationDictionary) => {
         const rowString = JSON.stringify(row).toLowerCase();
         return rowString.includes(this.searchValue);
-      });
+      }).filter(row => this.hasTrainingData(row));
     } else {
       // If search box is cleared, display the original list
-      this.reportTable = [...this.displayReportTable]; // Spread operator to create a shallow copy
+      this.displayReportTable = this.reportTable.filter(row => this.hasTrainingData(row));
     }
   }
 
@@ -49,12 +49,20 @@ export class VmmcListComponent implements OnInit {
       (data: DataDictionaryReport) => {
         this.dataDictionary = data;
 
-        this.reportTable = this.reportService.transformData(this.dataDictionary, this.trainingTypes);
+        this.reportTable = this.reportService.transformData(this.dataDictionary, this.trainingTypes)
+          .filter((row: any) => this.hasTrainingData(row));
 
         //creating a copy
         this.displayReportTable = this.reportTable;
       }
     );
+  }
+
+  hasTrainingData(row: any): boolean {
+    return this.trainingTypes.some(type => {
+      const training = row[type];
+      return training && Object.values(training).some(value => value);
+    });
   }
 
   exportToExcel(): void {
